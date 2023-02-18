@@ -27,10 +27,13 @@ std::vector<Coordinate> BoardMap::get_directly_adjacent_tiles(Terrain terrain) {
 std::vector<Coordinate> BoardMap::generate_neighbours_(uint8_t row, uint8_t column) {
     std::vector<Coordinate> neighbours;
     int8_t which_neighbour {0};
+    uint8_t upper_column_limit {0};
     if(row % 2 == 1) {
         which_neighbour = 1;
+        upper_column_limit = columns_ - 2;
     } else {
         which_neighbour = -1;
+        upper_column_limit = columns_ - 1;
     }
 
     int8_t new_column = column+which_neighbour;
@@ -47,7 +50,7 @@ std::vector<Coordinate> BoardMap::generate_neighbours_(uint8_t row, uint8_t colu
     if(column > 0) {
         neighbours.push_back(Coordinate(row, column-1));
     }
-    if (column < (columns_-1)) {
+    if (column < upper_column_limit) {
         neighbours.push_back(Coordinate(row, column+1));
     }
 
