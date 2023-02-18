@@ -11,6 +11,7 @@ class BoardMap
 {
 public:
     BoardMap(const std::vector<std::vector<Tile>> & tiles);
+    void build_dwelling(uint8_t row, uint8_t column, std::shared_ptr<Building> dwelling);
     friend std::ostream& operator<<(std::ostream& os, const BoardMap& map);
 
 private:

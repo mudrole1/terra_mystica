@@ -1,7 +1,8 @@
 #include <iostream> 
 #include <vector>
 
-#include "Map.h"
+#include "Dwelling.h"
+#include "BoardMap.h"
 #include "Tile.h"
 
 int main() {
@@ -151,6 +152,9 @@ int main() {
     tiles.push_back(row);
     row.clear();
 
-    Map map {tiles};
+    BoardMap map {tiles};
+    std::shared_ptr<Building> house =std::make_shared<Dwelling>();
+    map.build_dwelling(0,0, house);
+    map.build_dwelling(1,3, std::make_shared<Dwelling>());
     std::cout << "map generated\n" << map;
 }
