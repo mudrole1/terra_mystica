@@ -1,9 +1,9 @@
-#include "Map.h"
+#include "BoardMap.h"
 
- Map::Map(const std::vector<std::vector<Tile>> & tiles)
+BoardMap::BoardMap(const std::vector<std::vector<Tile>> & tiles)
   : tiles_(tiles) {}
 
-std::ostream& operator<<(std::ostream& os, const Map& map) {
+std::ostream& operator<<(std::ostream& os, const BoardMap& map) {
     for (uint8_t i = 0; i < map.rows_; ++i) {
         for (uint8_t j = 0; j < map.columns_; ++j) {
             if((i % 2 == 1) && (j == 0)) {
