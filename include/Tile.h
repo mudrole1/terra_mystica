@@ -7,7 +7,7 @@
 #include "Building.h"
 
 enum class Terrain {
-    U = 30, P = 43, S = 100, L = 44, F = 42, M = 47, W = 41, D = 103, R =46
+    U = 30, P = 43, S = 100, L = 44, F = 42, M = 47, W = 41, D = 103, R =106
 };
 
 class Tile
