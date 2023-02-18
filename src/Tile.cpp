@@ -8,6 +8,10 @@ void Tile::set_building(std::shared_ptr<Building> building) {
    occupied_ = true;
 }
 
+Terrain Tile::get_terrain() {
+   return terrain_;
+}
+
 std::ostream& operator<<(std::ostream& os, const Tile& tile) {
    os << "\033[0;";
    os << (int)tile.terrain_;
