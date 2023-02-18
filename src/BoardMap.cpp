@@ -64,6 +64,41 @@ std::vector<Coordinate> BoardMap::generate_neighbours_(uint8_t row, uint8_t colu
     return neighbours;
 }
 
+Terrain BoardMap::get_terrain(Coordinate coordinate) {
+    return tiles_.at(coordinate.row).at(coordinate.column).get_terrain();
+}
+
+uint8_t BoardMap::distance_between_terrains(Terrain terrain1, Terrain terrain2) {
+    uint8_t position1 {0};
+    uint8_t position2 {0};
+    if (terrain1 == terrain2) {
+        return 0;
+    }
+    for(uint8_t i = 0; i < terrain_distances_.size(); ++i) {
+        if(terrain_distances_.at(i)== terrain1) {
+            position1 = i;
+        }
+        if(terrain_distances_.at(i)== terrain2) {
+            position2 = i;
+        }
+    }
+    uint8_t distance {0};
+    if (position1 > position2) {
+        distance = position1 - position2;
+    } else {
+        distance = position2 - position1;
+    }
+    if(distance > (terrain_distances_.size()/2)) {
+        distance = terrain_distances_.size() - distance;
+    }
+    return distance;
+}
+
+void BoardMap::highlight_tile(Coordinate coordinate)
+{
+    tiles_.at(coordinate.row).at(coordinate.column).set_highlight(true);
+}
+
 std::ostream& operator<<(std::ostream& os, const BoardMap& map) {
     for (uint8_t i = 0; i < map.rows_; ++i) {
         for (uint8_t j = 0; j < map.columns_; ++j) {

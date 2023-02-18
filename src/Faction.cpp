@@ -18,7 +18,13 @@ std::vector<std::shared_ptr<Action>> Faction::generate_terra_form_actions_() {
     std::vector<std::shared_ptr<Action>> output;
     std::vector<Coordinate> da_tiles = map_->get_directly_adjacent_tiles(terrain_);
     for (auto tile : da_tiles) {
-        output.push_back(std::make_shared<TerraFormAction>(TerraFormAction(tile)));
+        Terrain da_terrain = map_->get_terrain(tile);
+        if(da_terrain == Terrain::R) {
+            continue;
+        }
+        uint8_t cost = map_->distance_between_terrains(terrain_, da_terrain);
+        map_->highlight_tile(tile);
+        output.push_back(std::make_shared<TerraFormAction>(TerraFormAction(tile, da_terrain, terrain_, cost)));
     }
     return output;
 }

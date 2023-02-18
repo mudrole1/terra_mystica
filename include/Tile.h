@@ -16,11 +16,13 @@ public:
     Tile(Terrain type);
     void set_building(std::shared_ptr<Building> building);
     Terrain get_terrain();
+    void set_highlight(bool highlight);
     friend std::ostream& operator<<(std::ostream& os, const Tile& tile);
 
 private:
     Terrain terrain_ {Terrain::U};
     bool occupied_ {false};
+    bool highlight_ {false};
     std::shared_ptr<Building> building_ {nullptr};
 
 };

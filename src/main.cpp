@@ -177,10 +177,9 @@ int main() {
         
         default:
             break;
-        }
-        
+        } 
     }
-
+    std::cout << *map << "\n";
 
     std::cout << "end\n";
 }
