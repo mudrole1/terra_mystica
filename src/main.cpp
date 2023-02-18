@@ -1,9 +1,11 @@
-#include <iostream> 
+#include <iostream>
 #include <vector>
 
+#include "BoardMap.h"
 #include "Coordinate.h"
 #include "Dwelling.h"
-#include "BoardMap.h"
+#include "Faction.h"
+#include "TerraFormAction.h"
 #include "Tile.h"
 
 int main() {
@@ -153,15 +155,32 @@ int main() {
     tiles.push_back(row);
     row.clear();
 
-    BoardMap map {tiles};
+    std::shared_ptr<BoardMap> map = std::make_shared<BoardMap>(tiles);
     std::shared_ptr<Building> house =std::make_shared<Dwelling>();
-    map.build_dwelling(0,0, house);
-    map.build_dwelling(1,3, std::make_shared<Dwelling>());
-    std::cout << "map generated\n" << map;
+    map->build_dwelling(0,0, house);
+    map->build_dwelling(1,3, std::make_shared<Dwelling>());
+    std::cout << "map generated\n" << *map;
 
-    std::vector<Coordinate> neighbour_tiles = map.get_directly_adjacent_tiles(Terrain::P);
+    std::vector<Coordinate> neighbour_tiles = map->get_directly_adjacent_tiles(Terrain::P);
     for (auto tile : neighbour_tiles) {
         std::cout << (int) tile.row << " " << (int) tile.column << "\n";
     }
+
+    Faction plains (map, Terrain::P);
+    auto actions = plains.generate_all_actions();
+    for(auto action : actions) {
+        switch (action->get_type())
+        {
+        case ActionType::TERRAFORM:
+            std::cout << *std::dynamic_pointer_cast<TerraFormAction>(action) << "\n";
+            break;
+        
+        default:
+            break;
+        }
+        
+    }
+
+
     std::cout << "end\n";
 }
