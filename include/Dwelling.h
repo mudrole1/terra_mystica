@@ -1,3 +1,6 @@
+#ifndef DWELLING_H
+#define DWELLING_H
+
 #include <stdint.h>
 
 #include "Building.h"
@@ -12,3 +15,4 @@ private:
     bool provides_worker_ {true};
 };
 
+#endif //DWELLING_H
