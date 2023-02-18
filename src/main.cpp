@@ -158,7 +158,7 @@ int main() {
     std::shared_ptr<BoardMap> map = std::make_shared<BoardMap>(tiles);
     std::shared_ptr<Building> house =std::make_shared<Dwelling>();
     map->build_dwelling(0,0, house);
-    map->build_dwelling(1,3, std::make_shared<Dwelling>());
+    map->build_dwelling(3,11, std::make_shared<Dwelling>());
     std::cout << "map generated\n" << *map;
 
     std::vector<Coordinate> neighbour_tiles = map->get_directly_adjacent_tiles(Terrain::P);
