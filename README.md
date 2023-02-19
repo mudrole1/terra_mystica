@@ -29,3 +29,6 @@ I will add CMAKE but for now
 ```
 g++ -g -Wall src/main.cpp src/Tile.cpp src/BoardMap.cpp src/Dwelling.cpp src/Building.cpp src/Action.cpp src/TerraFormAction.cpp src/Faction.cpp src/Game.cpp src/Coordinate.cpp -o game -I include/
 ```
+
+# Status
+19.2.2023: generating terraforming actions and allowing a player to perform the chosen action
