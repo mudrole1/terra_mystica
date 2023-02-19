@@ -18,6 +18,7 @@ public:
     Terrain get_terrain();
     void set_terrain(Terrain terrain);
     void set_highlight(bool highlight);
+    bool get_occupied();
     friend std::ostream& operator<<(std::ostream& os, const Tile& tile);
 
 private:

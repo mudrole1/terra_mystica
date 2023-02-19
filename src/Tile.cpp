@@ -21,6 +21,10 @@ void Tile::set_highlight(bool highlight)
    highlight_ = highlight;
 }
 
+bool Tile::get_occupied() {
+   return occupied_;
+}
+
 std::ostream& operator<<(std::ostream& os, const Tile& tile) {
    if(tile.highlight_) {
       os << "\033[5;";

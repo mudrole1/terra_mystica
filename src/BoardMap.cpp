@@ -11,13 +11,15 @@ void BoardMap::build_dwelling(uint8_t row, uint8_t column, std::shared_ptr<Build
 
 void BoardMap::generate_single_directly_adjacent(Tile tile, uint8_t row, uint8_t column) {
     Terrain terrain = tile.get_terrain();
-    std::vector<Coordinate> neighbour_tiles = generate_neighbours_(row, column);
+    std::pair<std::vector<Coordinate>, std::vector<Coordinate>> neighbours = filter_neighbours_(generate_neighbours_(row, column));
+    std::vector<Coordinate> neighbour_tiles = neighbours.first;
     auto it = player_directly_adjacent_.find(terrain);
     if (it == player_directly_adjacent_.end()) {
         player_directly_adjacent_.insert(std::pair<Terrain, std::vector<Coordinate>>(terrain, neighbour_tiles));
     } else {
         player_directly_adjacent_.at(terrain).insert(player_directly_adjacent_.at(terrain).end(), neighbour_tiles.begin(), neighbour_tiles.end());
     }
+    update_directly_adjacent_(neighbours.second, Coordinate(row, column));
 }
 
 std::vector<Coordinate> BoardMap::get_directly_adjacent_tiles(Terrain terrain) {
@@ -62,6 +64,38 @@ std::vector<Coordinate> BoardMap::generate_neighbours_(uint8_t row, uint8_t colu
         }
     }
     return neighbours;
+}
+
+std::pair<std::vector<Coordinate>, std::vector<Coordinate>> BoardMap::filter_neighbours_(std::vector<Coordinate> neighbours) {
+    std::vector<Coordinate> new_neighbours;
+    std::vector<Coordinate> tiles_to_update;
+    for (Coordinate coord : neighbours) {
+        if (!tiles_.at(coord.row).at(coord.column).get_occupied()) {
+            new_neighbours.push_back(coord);
+        } else {
+            tiles_to_update.push_back(coord);
+        }
+    }
+    std::pair<std::vector<Coordinate>, std::vector<Coordinate>> output (new_neighbours, tiles_to_update);
+    return output;
+}
+
+void BoardMap::update_directly_adjacent_(std::vector<Coordinate> update_neighbours, Coordinate new_tile) {
+    for (Coordinate coordinate : update_neighbours) {
+        Terrain terrain = tiles_.at(coordinate.row).at(coordinate.column).get_terrain();
+        auto it = player_directly_adjacent_.find(terrain);
+        if (it != player_directly_adjacent_.end()) {
+            uint8_t index {0};
+            std::vector<Coordinate> existing_adjacency = it->second;
+            for (uint8_t i=0; i < existing_adjacency.size(); ++i) {
+                if (existing_adjacency.at(i) == new_tile) {
+                    index = i;
+                    break;
+                }
+            }
+            it->second.erase(it->second.begin()+index);
+        }
+    }
 }
 
 Terrain BoardMap::get_terrain(Coordinate coordinate) {

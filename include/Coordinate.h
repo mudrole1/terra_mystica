@@ -9,6 +9,7 @@ struct Coordinate
         this->row = row; 
         this->column = column;
     }
+    friend bool operator==(const Coordinate& coord1, const Coordinate& coord2);
     uint8_t row;
     uint8_t column;
 };

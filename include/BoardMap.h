@@ -32,6 +32,8 @@ private:
     std::map<Terrain, std::vector<Coordinate>> player_directly_adjacent_;
 
     std::vector<Coordinate> generate_neighbours_(uint8_t row, uint8_t column);
+    std::pair<std::vector<Coordinate>, std::vector<Coordinate>> filter_neighbours_(std::vector<Coordinate> neighbours);
+    void update_directly_adjacent_(std::vector<Coordinate> update_neighbours, Coordinate new_tile);
 };
 
 #endif //BOARDMAP_H
