@@ -16,12 +16,14 @@ public:
 
 private:
     std::shared_ptr<BoardMap> map_ {nullptr};
-    Terrain terrain_;
-    uint8_t workers_ {1};
+    Terrain terrain_ {Terrain::U};
+    uint8_t workers_ {3};
     uint8_t coins_ {15};
 
     const uint8_t num_dwellings_ {8};
     std::stack<std::shared_ptr<Dwelling>> dwellings_ {};
+
+    uint8_t spade_cost_ {3};
     std::vector<std::shared_ptr<Action>> generate_terra_form_actions_();
 
 };

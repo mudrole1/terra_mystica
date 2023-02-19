@@ -25,8 +25,11 @@ std::vector<std::shared_ptr<Action>> Faction::generate_terra_form_actions_() {
         map_->highlight_tile(tile);
         std::vector<Terrain> all_other_terrains = map_->generate_all_other_terrains(da_terrain);
         for (Terrain other_terrain: all_other_terrains) {
-            uint8_t cost = map_->distance_between_terrains(da_terrain, other_terrain);
-            output.push_back(std::make_shared<TerraFormAction>(TerraFormAction(tile, da_terrain, other_terrain, cost)));
+            uint8_t cost_in_spades = map_->distance_between_terrains(da_terrain, other_terrain);
+            uint8_t cost_in_workers = cost_in_spades * spade_cost_;
+            if (cost_in_workers <= workers_) {
+                output.push_back(std::make_shared<TerraFormAction>(TerraFormAction(tile, da_terrain, other_terrain, cost_in_spades)));
+            }
         }
     }
     return output;
