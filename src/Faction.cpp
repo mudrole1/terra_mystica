@@ -22,9 +22,12 @@ std::vector<std::shared_ptr<Action>> Faction::generate_terra_form_actions_() {
         if(da_terrain == Terrain::R) {
             continue;
         }
-        uint8_t cost = map_->distance_between_terrains(terrain_, da_terrain);
         map_->highlight_tile(tile);
-        output.push_back(std::make_shared<TerraFormAction>(TerraFormAction(tile, da_terrain, terrain_, cost)));
+        std::vector<Terrain> all_other_terrains = map_->generate_all_other_terrains(da_terrain);
+        for (Terrain other_terrain: all_other_terrains) {
+            uint8_t cost = map_->distance_between_terrains(da_terrain, other_terrain);
+            output.push_back(std::make_shared<TerraFormAction>(TerraFormAction(tile, da_terrain, other_terrain, cost)));
+        }
     }
     return output;
 }

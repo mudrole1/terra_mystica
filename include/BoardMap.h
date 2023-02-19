@@ -19,6 +19,7 @@ public:
     Terrain get_terrain(Coordinate coordinate);
     uint8_t distance_between_terrains(Terrain terrain1, Terrain terrain2);
     void highlight_tile(Coordinate coordinate);
+    std::vector<Terrain> generate_all_other_terrains(Terrain terrain);
     friend std::ostream& operator<<(std::ostream& os, const BoardMap& map);
 
 private:

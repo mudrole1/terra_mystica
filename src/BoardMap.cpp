@@ -99,6 +99,16 @@ void BoardMap::highlight_tile(Coordinate coordinate)
     tiles_.at(coordinate.row).at(coordinate.column).set_highlight(true);
 }
 
+std::vector<Terrain> BoardMap::generate_all_other_terrains(Terrain terrain) {
+    std::vector<Terrain> output;
+    for (const Terrain all_terrain : terrain_distances_) {
+        if (all_terrain != terrain) {
+            output.push_back(all_terrain);
+        }
+    }
+    return output;
+}
+
 std::ostream& operator<<(std::ostream& os, const BoardMap& map) {
     for (uint8_t i = 0; i < map.rows_; ++i) {
         for (uint8_t j = 0; j < map.columns_; ++j) {
