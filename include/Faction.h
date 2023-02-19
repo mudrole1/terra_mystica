@@ -1,3 +1,6 @@
+#ifndef FACTION_H
+#define FACTION_H
+
 #include <memory>
 #include <stack>
 #include <stdint.h>
@@ -27,3 +30,5 @@ private:
     std::vector<std::shared_ptr<Action>> generate_terra_form_actions_();
 
 };
+
+#endif //FACTION_H
