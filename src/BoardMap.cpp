@@ -109,6 +109,11 @@ std::vector<Terrain> BoardMap::generate_all_other_terrains(Terrain terrain) {
     return output;
 }
 
+void BoardMap::terraform(std::shared_ptr<TerraFormAction> action) {
+    Coordinate coord = action->get_coordinates();
+    tiles_.at(coord.row).at(coord.column).set_terrain(action->get_final_terrain());
+}
+
 std::ostream& operator<<(std::ostream& os, const BoardMap& map) {
     for (uint8_t i = 0; i < map.rows_; ++i) {
         for (uint8_t j = 0; j < map.columns_; ++j) {

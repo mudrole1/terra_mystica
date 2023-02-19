@@ -6,6 +6,18 @@ TerraFormAction::TerraFormAction(Coordinate coordinate, Terrain from, Terrain to
     type_ = ActionType::TERRAFORM;
  }
 
+uint8_t TerraFormAction::get_spades(){
+    return spades_;
+}
+
+Coordinate TerraFormAction::get_coordinates() {
+    return coordinate_;
+}
+
+Terrain TerraFormAction::get_final_terrain() {
+    return to_;
+}
+
 std::ostream& operator<<(std::ostream& os, const TerraFormAction& action) {
     os << "terraform on coordinates (";
     if (action.coordinate_.row < 10) {

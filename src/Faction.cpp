@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdexcept>
 
 #include "Faction.h"
 #include "TerraFormAction.h"
@@ -30,8 +31,23 @@ void Faction::do_action() {
     }
     std::cout << *map_ << "\n";
     std::cout << "which one did you take?\n";
-    int chosen_action;
-    std::cin >> chosen_action;
+    int chosen_index;
+    std::cin >> chosen_index;
+
+    while((chosen_index < 0) || (chosen_index >= actions.size())) {
+        std::cout << "wrong number, try again.";
+        std::cin >> chosen_index;
+    }
+
+    std::shared_ptr<Action> chosen_action = actions.at(chosen_index);
+    switch (chosen_action->get_type())
+    {
+    case ActionType::TERRAFORM:
+        do_terraform_action_(chosen_action);
+        break;
+    default:
+        break;
+    }
 }
 
 std::vector<std::shared_ptr<Action>> Faction::generate_all_actions_() {
@@ -60,3 +76,14 @@ std::vector<std::shared_ptr<Action>> Faction::generate_terra_form_actions_() {
     return output;
 }
 
+void Faction::do_terraform_action_(std::shared_ptr<Action> chosen_action) {
+    std::shared_ptr<TerraFormAction> chosen_terra_form = std::dynamic_pointer_cast<TerraFormAction>(chosen_action);
+    uint8_t worker_cost = chosen_terra_form->get_spades()*spade_cost_;
+    if(workers_ < worker_cost) {
+        throw std::logic_error("not enough workers for the chosen terraforming action\n");
+    }
+    map_->terraform(chosen_terra_form);
+    workers_ = workers_ - worker_cost;
+    std::cout << "Action " << *chosen_terra_form << "has been performed.\n";
+    std::cout << *map_;
+}

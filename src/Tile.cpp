@@ -12,6 +12,10 @@ Terrain Tile::get_terrain() {
    return terrain_;
 }
 
+void Tile::set_terrain(Terrain terrain) {
+   terrain_ = terrain;
+}
+
 void Tile::set_highlight(bool highlight)
 {
    highlight_ = highlight;

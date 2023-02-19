@@ -29,6 +29,7 @@ private:
     uint8_t spade_cost_ {3};
     std::vector<std::shared_ptr<Action>> generate_all_actions_();
     std::vector<std::shared_ptr<Action>> generate_terra_form_actions_();
+    void do_terraform_action_(std::shared_ptr<Action> chosen_action);
 
 };
 

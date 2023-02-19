@@ -13,6 +13,9 @@ class TerraFormAction : public Action
 {
 public:
     TerraFormAction(Coordinate coordinate, Terrain from,  Terrain to, uint8_t spades);
+    uint8_t get_spades();
+    Coordinate get_coordinates();
+    Terrain get_final_terrain();
     friend std::ostream& operator<<(std::ostream& os, const TerraFormAction& action);
 private:
     Coordinate coordinate_;

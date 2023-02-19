@@ -7,6 +7,7 @@
 #include <map>
 
 #include "Coordinate.h"
+#include "TerraFormAction.h"
 #include "Tile.h"
 
 class BoardMap
@@ -20,6 +21,7 @@ public:
     uint8_t distance_between_terrains(Terrain terrain1, Terrain terrain2);
     void highlight_tile(Coordinate coordinate);
     std::vector<Terrain> generate_all_other_terrains(Terrain terrain);
+    void terraform(std::shared_ptr<TerraFormAction> action);
     friend std::ostream& operator<<(std::ostream& os, const BoardMap& map);
 
 private:
