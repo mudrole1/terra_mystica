@@ -167,19 +167,7 @@ int main() {
     }
 
     Faction plains (map, Terrain::P);
-    auto actions = plains.generate_all_actions();
-    for(auto action : actions) {
-        switch (action->get_type())
-        {
-        case ActionType::TERRAFORM:
-            std::cout << *std::dynamic_pointer_cast<TerraFormAction>(action) << "\n";
-            break;
-        
-        default:
-            break;
-        } 
-    }
-    std::cout << *map << "\n";
+    plains.do_action();
 
     std::cout << "end\n";
 }

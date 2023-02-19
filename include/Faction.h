@@ -15,7 +15,7 @@ class Faction
 {
 public:
     Faction(std::shared_ptr<BoardMap> map, Terrain terrain);
-    std::vector<std::shared_ptr<Action>> generate_all_actions();
+    void do_action();
 
 private:
     std::shared_ptr<BoardMap> map_ {nullptr};
@@ -27,6 +27,7 @@ private:
     std::stack<std::shared_ptr<Dwelling>> dwellings_ {};
 
     uint8_t spade_cost_ {3};
+    std::vector<std::shared_ptr<Action>> generate_all_actions_();
     std::vector<std::shared_ptr<Action>> generate_terra_form_actions_();
 
 };
